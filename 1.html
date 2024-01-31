@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Links</title>
+</head>
+<body>
+
+<!-- สร้างตัวแปร JavaScript เพื่อเก็บข้อมูล JSON -->
+<script>
+    var jsonData = {
+        "links": [
+            {"id": "link1", "url": "https://example.com", "text": "Example Link"},
+            {"id": "link2", "url": "https://google.com", "text": "Google"}
+        ]
+    };
+
+    // สร้างฟังก์ชันเพื่อลิงก์ URL กับปุ่ม
+    function linkUrlToButton(linkId, buttonId) {
+        var link = document.getElementById(linkId);
+        var button = document.getElementById(buttonId);
+
+        if (link && button) {
+            button.addEventListener('click', function() {
+                window.location.href = link.href;
+            });
+        }
+    }
+
+    // นำข้อมูลจาก JSON มาลิงก์ URL กับปุ่ม
+    for (var i = 0; i < jsonData.links.length; i++) {
+        var link = jsonData.links[i];
+        var linkId = link.id;
+        var buttonId = 'button' + (i + 1); // สมมติว่าปุ่มมี id เป็น button1, button2, ...
+
+        // สร้างแท็กลิ้งค์
+        var linkTag = document.createElement('a');
+        linkTag.id = linkId;
+        linkTag.href = link.url;
+        linkTag.innerText = link.text;
+
+        // สร้างปุ่ม
+        var button = document.createElement('button');
+        button.id = buttonId;
+        button.innerText = 'Click me';
+
+        // เพิ่มแท็กลิ้งค์และปุ่มลงในเอกสาร HTML
+        document.body.appendChild(linkTag);
+        document.body.appendChild(button);
+
+        // ลิงก์ URL กับปุ่ม
+        linkUrlToButton(linkId, buttonId);
+    }
+</script>
+
+</body>
+</html>
